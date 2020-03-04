@@ -13,11 +13,19 @@ function Login() {
   </Center>
   )
 }
+function Register() {
+  return (
+  <Center>
+    <Text>I am a register screen</Text>
+  </Center>
+  )
+}
 export const Routes: React.FC<RoutesProps> = ({}) => {
     return (
       <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Register">
         <Stack.Screen name='Login' component={Login} />
+        <Stack.Screen name='Register' component={Register} />
       </Stack.Navigator>
       </NavigationContainer>
     );
