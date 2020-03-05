@@ -6,7 +6,7 @@ export type AuthParamList = {
   Register: undefined;
 };
 
-export type AuthNavProps<T> = {
-  navigation: StackNavigationProp<AuthParamList, "Register">;
-  route: RouteProp<AuthParamList, "Register">;
+export type AuthNavProps<T extends keyof AuthParamList> = {
+  navigation: StackNavigationProp<AuthParamList, T>;
+  route: RouteProp<AuthParamList, T>;
 }
