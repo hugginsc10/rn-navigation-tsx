@@ -6,48 +6,10 @@ import { Center } from "./Center";
 import { AuthParamList, AuthNavProps } from './AuthParamList';
 import { AuthContext } from './AuthProvider';
 import { AppTabs } from './AppTabs';
+import { AuthStack } from './AuthStack';
 
 interface RoutesProps {}
 
-const Stack = createStackNavigator<AuthParamList>();
-
-function Login({navigation}: AuthNavProps<"Login">) {
-  const { login } = useContext(AuthContext)
-  return (
-   <Center>
-    <Text>I am a login screen</Text>
-    <Button 
-      title="log me in"
-      onPress={() => {
-        login();
-      }}
-      />
-    <Button 
-      title="go to register" 
-      onPress={() => {
-        navigation.navigate("Register");
-      }}
-    />
-    
-  </Center>
-  );
-}
-
-function Register({ 
-  navigation,
-  route }: AuthNavProps<"Register">) {
-  return (
-  <Center>
-    <Text>Route Name: {route.name}</Text>
-    <Button
-      title="go to login"
-      onPress={() => {
-        navigation.navigate("Login");
-      }}
-      />
-  </Center>
-  )
-}
 export const Routes: React.FC<RoutesProps> = ({}) => {
   const {user, login} = useContext(AuthContext)
   const [loading, setLoading] = useState(true);
@@ -74,26 +36,7 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
         {user ? (
           <AppTabs />
         ) : (
-          <Stack.Navigator 
-            screenOptions={{
-              header: () => null
-            }}
-            initialRouteName="Login">
-            <Stack.Screen
-              name="Login"
-              options={{
-                headerTitle: "Log In"
-              }}
-              component={Login}
-            />
-            <Stack.Screen
-              name="Register"
-              options={{
-                headerTitle: "Sign Up"
-              }}
-              component={Register}
-            />
-          </Stack.Navigator>
+         <AuthStack/>
         )}
       </NavigationContainer>
     );
