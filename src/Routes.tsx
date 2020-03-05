@@ -11,15 +11,23 @@ interface RoutesProps {}
 const Stack = createStackNavigator<AuthParamList>();
 
 function Login({navigation}: AuthNavProps<"Login">) {
+  const { login } = useContext(AuthContext)
   return (
    <Center>
     <Text>I am a login screen</Text>
+    <Button 
+      title="log me in"
+      onPress={() => {
+        login();
+      }}
+      />
     <Button 
       title="go to register" 
       onPress={() => {
         navigation.navigate("Register");
       }}
     />
+    
   </Center>
   );
 }
@@ -40,20 +48,19 @@ function Register({
   )
 }
 export const Routes: React.FC<RoutesProps> = ({}) => {
-  const {user} = useContext(AuthContext)
+  const {user, login} = useContext(AuthContext)
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     AsyncStorage.getItem('user').then(userString => {
       if (userString) {
-        //decode it
-      } else {
+        login()
+      } 
         setLoading(false)
-      }
     }).catch(err => {
       console.log(err);
     });
   }, []);
-  
+
   if (loading) {
     return (
       <Center>
