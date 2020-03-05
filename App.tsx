@@ -1,4 +1,4 @@
 import { Routes } from './src/Routes'
 
 
-export default Routes
+export default Routes;
