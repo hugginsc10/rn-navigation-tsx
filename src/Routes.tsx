@@ -1,9 +1,10 @@
-import React from 'react';
-import { View , Text, Button } from "react-native";
+import React, { useEffect, useState, useContext } from 'react';
+import { View , Text, Button, ActivityIndicator, AsyncStorage } from "react-native";
 import { NavigationContainer, RouteProp } from "@react-navigation/native";
 import { createStackNavigator, StackNavigationProp } from "@react-navigation/stack";
 import { Center } from "./Center";
 import { AuthParamList, AuthNavProps } from './AuthParamList';
+import { AuthContext } from './AuthProvider';
 
 interface RoutesProps {}
 
@@ -39,16 +40,51 @@ function Register({
   )
 }
 export const Routes: React.FC<RoutesProps> = ({}) => {
+  const {user} = useContext(AuthContext)
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    AsyncStorage.getItem('user').then(userString => {
+      if (userString) {
+        //decode it
+      } else {
+        setLoading(false)
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+  }, []);
+  
+  if (loading) {
+    return (
+      <Center>
+        <ActivityIndicator size="large" />
+      </Center>
+    )
+  }
     return (
       <NavigationContainer>
-      <Stack.Navigator initialRouteName="Register">
-        <Stack.Screen name='Login' options={{
-          headerTitle: "Log In"
-        }} component={Login} />
-        <Stack.Screen name='Register' options={{
-          headerTitle: "Sign Up"
-        }} component={Register} />
-      </Stack.Navigator>
+        {user ? (
+          <Center>
+            <Text>you exist</Text>
+          </Center>
+        ) : (
+          <Stack.Navigator initialRouteName="Login">
+            <Stack.Screen
+              name="Login"
+              options={{
+                headerTitle: "Log In"
+              }}
+              component={Login}
+            />
+            <Stack.Screen
+              name="Register"
+              options={{
+                headerTitle: "Sign Up"
+              }}
+              component={Register}
+            />
+          </Stack.Navigator>
+        )}
       </NavigationContainer>
     );
 }

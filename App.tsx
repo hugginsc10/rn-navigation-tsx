@@ -1,4 +1,4 @@
-import { Routes } from './src/Routes'
+import { Providers } from './src/Providers'
 
 
-export default Routes;
+export default Providers;
