@@ -33,11 +33,7 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
   } 
     return (
       <NavigationContainer>
-        {user ? (
-          <AppTabs />
-        ) : (
-         <AuthStack/>
-        )}
+        {user ? (<AppTabs />) : (<AuthStack/>)}
       </NavigationContainer>
     );
 }
