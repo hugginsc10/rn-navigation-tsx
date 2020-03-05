@@ -1,17 +1,35 @@
 import React, { useContext } from 'react'
-import { Text } from 'react-native'
+import { Text, Button } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack';
 import { Center } from './Center';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity, FlatList } from 'react-native-gesture-handler';
+import { HomeParamList } from './HomeParamList';
 import { AuthContext } from './AuthProvider';
+import faker from "faker";
+
 
 interface HomeStackProps {}
-const Stack = createStackNavigator();
+
+const Stack = createStackNavigator<HomeParamList>();
 
 function Feed() {
   return(
     <Center>
-      <Text>Feed</Text>
+      <FlatList 
+      style={{ width: "100%"}}
+      renderItem={({item}) => {
+      return <Button title={item} onPress={() => {}} />
+      }}
+      keyExtractor={(product, idx) => product + idx}
+      data={Array.from(Array(50), () => faker.commerce.product())}
+      />
+    </Center>
+  )
+}
+function Product() {
+  return (
+    <Center>
+      <Text>Product</Text>
     </Center>
   )
 }
@@ -30,6 +48,7 @@ export const HomeStack: React.FC<HomeStackProps> = ({}) => {
             )
           }
         }} component={Feed}/>
+        <Stack.Screen name="Product" component={Product}/>
       </Stack.Navigator>
     );
 }
