@@ -5,6 +5,7 @@ import { createStackNavigator, StackNavigationProp } from "@react-navigation/sta
 import { Center } from "./Center";
 import { AuthParamList, AuthNavProps } from './AuthParamList';
 import { AuthContext } from './AuthProvider';
+import { AppTabs } from './AppTabs';
 
 interface RoutesProps {}
 
@@ -67,15 +68,17 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
         <ActivityIndicator size="large" />
       </Center>
     )
-  }
+  } 
     return (
       <NavigationContainer>
         {user ? (
-          <Center>
-            <Text>you exist</Text>
-          </Center>
+          <AppTabs />
         ) : (
-          <Stack.Navigator initialRouteName="Login">
+          <Stack.Navigator 
+            screenOptions={{
+              header: () => null
+            }}
+            initialRouteName="Login">
             <Stack.Screen
               name="Login"
               options={{
