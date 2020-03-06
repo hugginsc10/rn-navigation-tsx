@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Text, Button } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack';
 import { Center } from './Center';
@@ -43,7 +43,20 @@ function Product({ route, navigation }: HomeStackNavProps<"Product">) {
     </Center>
   )
 }
-function EditProduct({ route }: HomeStackNavProps<"EditProduct">) {
+function apiCall(x: any) {
+  return x
+}
+function EditProduct({ route, navigation }: HomeStackNavProps<"EditProduct">) {
+  const [formState] = useState();
+  const submit = useRef(() => {});
+  submit.current = () => {
+    apiCall(formState)
+    navigation.goBack();
+
+  }
+  useEffect(() => {
+    navigation.setParams({ submit })
+  }, [])
   return (
     <Center>
       <Text>{route.params.name}...</Text>
@@ -73,7 +86,13 @@ export const HomeStack: React.FC<HomeStackProps> = ({}) => {
         <Stack.Screen options={({route}) => ({
           headerTitle: `Edit: ${route.params.name}`,
           headerRight: () => (
-            <TouchableOpacity style={{ paddingRight: 8 }}>
+            <TouchableOpacity 
+            onPress={() => {
+              if (route.params.submit) {
+              route.params.submit?.current()
+              }
+            }}
+            style={{ paddingRight: 8 }}>
               <Text style={{
                 color: "red"
               }}>Done</Text>
