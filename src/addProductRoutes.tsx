@@ -3,7 +3,7 @@ import { TouchableOpacity, Text, Button } from "react-native";
 import { HomeStackNavProps, HomeParamList } from "./HomeParamList";
 import { Center } from "./Center";
 import { StackNavigationState, TypedNavigator } from "@react-navigation/native";
-import { SearchParamList, SearchStackNavProps } from "./SearchParamList";
+import { SearchParamList } from "./SearchParamList";
 
 function Product({ route, navigation }: HomeStackNavProps<"Product">) {
   return (

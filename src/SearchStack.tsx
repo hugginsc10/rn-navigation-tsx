@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Text, Button, FlatList } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack';
-import { SearchParamList } from './SeacrchParamList';
+import { SearchParamList } from './SearchParamList';
 import { Center } from './Center';
 import faker from 'faker';
 import { addProductRoutes } from './addProductRoutes';
