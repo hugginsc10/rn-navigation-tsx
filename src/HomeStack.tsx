@@ -31,10 +31,22 @@ function Feed({navigation}: HomeStackNavProps<'Feed'>) {
     </Center>
   )
 }
-function Product({ route }: HomeStackNavProps<"Product">) {
+function Product({ route, navigation }: HomeStackNavProps<"Product">) {
   return (
     <Center>
       <Text>{route.params.name}</Text>
+      <Button title="Edit This Product"
+      onPress={() => 
+        navigation.navigate("EditProduct", {
+          name: route.params.name
+        })}/>
+    </Center>
+  )
+}
+function EditProduct({ route }: HomeStackNavProps<"EditProduct">) {
+  return (
+    <Center>
+      <Text>{route.params.name}...</Text>
     </Center>
   )
 }
@@ -58,6 +70,11 @@ export const HomeStack: React.FC<HomeStackProps> = ({}) => {
         })
       }
        name="Product" component={Product}/>
+        <Stack.Screen options={({route}) => ({
+          headerTitle: `Edit: ${route.params.name}`
+        })
+      }
+       name="EditProduct" component={EditProduct}/>
       </Stack.Navigator>
     );
 }

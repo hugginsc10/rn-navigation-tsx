@@ -7,6 +7,9 @@ export type HomeParamList = {
   Product: {
     name: string
   };
+  EditProduct: {
+    name: string;
+  }
 };
 
 export type HomeStackNavProps<T extends keyof HomeParamList> = {
