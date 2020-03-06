@@ -71,7 +71,14 @@ export const HomeStack: React.FC<HomeStackProps> = ({}) => {
       }
        name="Product" component={Product}/>
         <Stack.Screen options={({route}) => ({
-          headerTitle: `Edit: ${route.params.name}`
+          headerTitle: `Edit: ${route.params.name}`,
+          headerRight: () => (
+            <TouchableOpacity style={{ paddingRight: 8 }}>
+              <Text style={{
+                color: "red"
+              }}>Done</Text>
+            </TouchableOpacity>
+          )
         })
       }
        name="EditProduct" component={EditProduct}/>
